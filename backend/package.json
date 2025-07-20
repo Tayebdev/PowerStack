@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "nodemon ./server.js",
     "start": "nodemon ./server.js",
-    "migrate_make": "knex migrate:make",
-    "migrate_latest": "knex migrate:latest",
-    "migrate_rollback": "knex migrate:rollback",
-    "seed_make": "knex seed:make",
-    "seed_run": "knex seed:run"
+    "migrate_make": "knex migrate:make --knexfile ./dbConfig/knexfile.js --env development",
+    "migrate_latest": "knex migrate:latest --knexfile ./dbConfig/knexfile.js --env development",
+    "migrate_rollback": "knex migrate:rollback --knexfile ./dbConfig/knexfile.js --env development",
+    "seed_make": "knex seed:make --knexfile ./dbConfig/knexfile.js --env development",
+    "seed_run": "knex seed:run --knexfile ./dbConfig/knexfile.js --env development"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "express": "^5.1.0",
     "knex": "^3.1.0",
     "mysql": "^2.18.1",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "path": "^0.12.7"
   }
 }
