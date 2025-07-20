@@ -12,7 +12,6 @@ module.exports = {
       database: process.env.DATABASE,
     },
     migrations: {
-     // directory: path.resolve(__dirname, "../dbConfig/migrations"),
      directory: "../dbConfig/migrations",
     },
   },
