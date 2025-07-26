@@ -12,7 +12,22 @@ module.exports = {
       database: process.env.DATABASE,
     },
     migrations: {
-     directory: "../dbConfig/migrations",
+      directory: "../dbConfig/migrations",
+    },
+  },
+  production: {
+    client: "mysql",
+    connection: {
+      host: process.env.HOST,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+    },
+    migrations: {
+      directory: "./migrations",
+    },
+    seeds: {
+      directory: "./seeds",
     },
   },
 };
