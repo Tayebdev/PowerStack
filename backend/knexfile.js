@@ -1,4 +1,6 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -12,7 +14,7 @@ module.exports = {
       database: process.env.DATABASE,
     },
     migrations: {
-      directory: "../dbConfig/migrations",
+      directory: path.resolve(__dirname, "dbConfig/migrations"),
     },
   },
   production: {
@@ -24,10 +26,7 @@ module.exports = {
       database: process.env.DATABASE,
     },
     migrations: {
-      directory: "./migrations",
-    },
-    seeds: {
-      directory: "./seeds",
+      directory: path.resolve(__dirname, "dbConfig/migrations"),
     },
   },
 };

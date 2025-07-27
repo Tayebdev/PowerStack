@@ -10,6 +10,7 @@ exports.up = function (knex) {
     table.string("phone", 15).notNullable();
     table.string("wilaya").notNullable();
     table.string("commune").notNullable();
+    table.string('email',50).notNullable();
     table.timestamps(true, true);
   });
 };
