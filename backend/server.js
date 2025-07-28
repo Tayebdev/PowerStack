@@ -4,12 +4,16 @@ require("dotenv").config();
 const ErrorAPI = require("./utils/ErrorAppi");
 const GlobalError = require("./middleware/globalError");
 const morgan = require("morgan");
+const path = require("path");
 
 //Routers
 const clientRoute = require("./router/client_route");
+const categoryRoute = require("./router/category_route");
 
 const app = express();
-app.use(express.json({ limit: "20kb" }));
+
+app.use("/upload", express.static(path.join(__dirname, "Uploads")));
+app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   console.log(`✅ mode:${process.env.NODE_ENV}`);
@@ -17,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 
 //Routes
 app.use("/api/v1/client", clientRoute);
+app.use("/api/v1/category", categoryRoute);
 
 app.use((req, res, next) => {
   next(new ErrorAPI(`Can't find ${req.originalUrl} on the server`, 400));

@@ -48,7 +48,6 @@ exports.updateClient = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "Client is updated",
-    data: result,
   });
 });
 

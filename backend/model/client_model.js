@@ -13,8 +13,7 @@ exports.clientModel = {
     return await db("client").select("*").where({ id: clientId });
   }),
   update: asyncHandler(async (clientId, updateClient) => {
-    await db("client").where({ id: clientId }).update(updateClient);
-    return updateClient;
+    return await db("client").where({ id: clientId }).update(updateClient);
   }),
   delete: asyncHandler(async (clientId) => {
     return await db("client").where({ id: clientId }).del();

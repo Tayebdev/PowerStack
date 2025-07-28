@@ -20,10 +20,14 @@
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
     "express-validator": "^7.2.1",
+    "fs": "^0.0.1-security",
     "morgan": "^1.10.1",
+    "multer": "^2.0.2",
     "mysql": "^2.18.1",
     "nodemon": "^3.1.10",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sharp": "^0.34.3",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "cross-env": "^10.0.0",
