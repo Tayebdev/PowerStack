@@ -9,6 +9,9 @@ const path = require("path");
 //Routers
 const clientRoute = require("./router/client_route");
 const categoryRoute = require("./router/category_route");
+const brandRoute = require("./router/brand_route");
+
+
 
 const app = express();
 
@@ -22,6 +25,9 @@ if (process.env.NODE_ENV === "development") {
 //Routes
 app.use("/api/v1/client", clientRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/brand", brandRoute);
+
+
 
 app.use((req, res, next) => {
   next(new ErrorAPI(`Can't find ${req.originalUrl} on the server`, 400));

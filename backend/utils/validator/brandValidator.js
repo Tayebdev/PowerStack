@@ -1,11 +1,11 @@
 const { runValidation } = require("../../middleware/validatorMiddleware");
 const { check } = require("express-validator");
-const db = require("../../dbConfig/db");
 const ErrorAPI = require("../../utils/ErrorAppi");
 const { removeImage } = require("../../middleware/imageMiddleware");
+const db = require("../../dbConfig/db");
 const asyncHandler = require("express-async-handler");
 
-exports.createCategoryValidator = [
+exports.createBrandValidator = [
   check("name")
     .notEmpty()
     .withMessage("Name is required")
@@ -23,7 +23,7 @@ exports.createCategoryValidator = [
 
   check("picture").custom(async (value, { req }) => {
     if (!req.file) {
-      throw new ErrorAPI("Picture category is required", 400);
+      throw new ErrorAPI("Picture brand is required", 400);
     }
     return true;
   }),
@@ -31,32 +31,33 @@ exports.createCategoryValidator = [
   runValidation,
 ];
 
-exports.getCategoryValidator = [
-  check("categoryId")
+exports.getBrandValidator = [
+  check("brandId")
     .notEmpty()
-    .withMessage("Category ID is required")
+    .withMessage("Brand ID is required")
     .isInt({ min: 1 })
-    .withMessage("Invalid Category ID format"),
+    .withMessage("Invalid Brand ID format"),
   runValidation,
 ];
 
-exports.updateCategoryValidator = [
-  check("categoryId")
+exports.updateBrandValidator = [
+  check("brandId")
     .notEmpty()
-    .withMessage("Category ID is required")
+    .withMessage("Brand ID is required")
     .bail()
     .isInt({ min: 1 })
-    .withMessage("Invalid Category ID format")
+    .withMessage("Invalid Brand ID format")
     .bail()
     .custom(
       asyncHandler(async (value) => {
-        const category = await db("category").where({ id: value }).first();
-        if (!category) {
-          throw new ErrorAPI("Category not found", 404);
+        const brand = await db("brand").where({ id: value }).first();
+        if (!brand) {
+          throw new ErrorAPI("Brand not found", 404);
         }
         return true;
       })
     ),
+
   check("name")
     .optional()
     .isLength({ min: 3 })
@@ -82,11 +83,22 @@ exports.updateCategoryValidator = [
   runValidation,
 ];
 
-exports.deleteCategoryValidator = [
-  check("categoryId")
+exports.deleteBrandValidator = [
+  check("brandId")
     .notEmpty()
-    .withMessage("Category ID is required")
+    .withMessage("Brand ID is required")
+    .bail()
     .isInt({ min: 1 })
-    .withMessage("Invalid category ID format"),
+    .withMessage("Invalid Brand ID format")
+    .bail()
+    .custom(
+      asyncHandler(async (value) => {
+        const brand = await db("brand").where({ id: value }).first();
+        if (!brand) {
+          throw new ErrorAPI("Brand not found", 404);
+        }
+        return true;
+      })
+    ),
   runValidation,
 ];

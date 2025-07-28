@@ -17,14 +17,22 @@ exports.categoryModel = {
   }),
   update: asyncHandler(async (categoryId, updateCategory) => {
     const result = await db("category").select("*").where({ id: categoryId });
-    await removeImage(`${uploadPath}/${result[0].picture}`);
-    return await db("category")
-      .where({ id: categoryId })
-      .update(updateCategory);
+    if (!result || result.length === 0) {
+      return null;
+    }
+    if (updateCategory.picture && result[0].picture) {
+      await removeImage(`${uploadPath}/${result[0].picture}`);
+    }
+    await db("category").where({ id: categoryId }).update(updateCategory);
+    return result;
   }),
   delete: asyncHandler(async (categoryId) => {
     const result = await db("category").where({ id: categoryId });
+    if (!result || result.length === 0) {
+      return null;
+    }
     await removeImage(`${uploadPath}/${result[0].picture}`);
-    return await db("category").where({ id: categoryId }).del();
+    await db("category").where({ id: categoryId }).del();
+    return result;
   }),
 };
