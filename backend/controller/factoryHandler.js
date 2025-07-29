@@ -1,3 +1,4 @@
+const { stringify } = require("uuid");
 const ErrorAPI = require("../utils/ErrorAppi");
 const asyncHandler = require("express-async-handler");
 
@@ -6,7 +7,6 @@ exports.createOne = (model, modelName) => {
     if (req.file) {
       req.body.picture = req.file.filename;
     }
-
     const result = await model.create(req.body);
 
     if (!result) {
@@ -53,6 +53,9 @@ exports.getOne = (model, modelName, idParam = "id") => {
 
 exports.updateOne = (model, modelName, idParam = "id") => {
   return asyncHandler(async (req, res, next) => {
+    if (req.body.flavor && typeof req.body.flavor !== "string") {
+      req.body.flavor = JSON.stringify(req.body.flavor);
+    }
     if (req.file) {
       req.body.picture = req.file.filename;
     }

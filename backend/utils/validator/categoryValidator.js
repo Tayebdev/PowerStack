@@ -65,7 +65,6 @@ exports.updateCategoryValidator = [
     .withMessage("Name is too long")
     .custom(async (value, { req }) => {
       if (!value || value.length < 3 || value.length > 30) {
-        await removeImage(req.file.path);
         throw new ErrorAPI("Name is required", 400);
       }
       return true;
