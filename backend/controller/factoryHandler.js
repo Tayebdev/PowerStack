@@ -53,9 +53,6 @@ exports.getOne = (model, modelName, idParam = "id") => {
 
 exports.updateOne = (model, modelName, idParam = "id") => {
   return asyncHandler(async (req, res, next) => {
-    if (req.body.flavor && typeof req.body.flavor !== "string") {
-      req.body.flavor = JSON.stringify(req.body.flavor);
-    }
     if (req.file) {
       req.body.picture = req.file.filename;
     }
